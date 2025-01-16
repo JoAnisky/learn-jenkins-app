@@ -7,5 +7,10 @@ pipeline {
                 echo "Hello world"
             }
         }
+        stage('Test build auto') {
+            steps {
+                echo "Hello build"
+            }
+        }
     }
 }
