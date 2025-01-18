@@ -14,6 +14,7 @@ pipeline {
                     ls -la
                     node --version
                     npm --version
+                    # Remplace npm install dans le cadre d'un CI (créé le dossier node_modules)
                     npm ci
                     npm run build
                     ls -la
@@ -29,11 +30,28 @@ pipeline {
 			}
             steps {
                 sh '''
+                	echo "Test stage"
                     test -f build/index.html
                     npm test
                 '''
             }
         }
+
+		stage('E2E') {
+			agent {
+				docker {
+					image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+					reuseNode true
+				}
+			}
+			steps {
+				sh '''
+					npm install -g serve
+					serve -s build
+					npx playwright test
+				'''
+			}
+		}
     }
 
     post {
