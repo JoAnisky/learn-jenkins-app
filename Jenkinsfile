@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+    /*
         stage('Build') {
             agent {
                 docker {
@@ -14,13 +15,13 @@ pipeline {
                     ls -la
                     node --version
                     npm --version
-                    # Remplace npm install dans le cadre d'un CI (créé le dossier node_modules)
                     npm ci
                     npm run build
                     ls -la
                 '''
             }
         }
+        */
         stage('Test') {
 			agent {
 				docker {
