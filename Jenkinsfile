@@ -46,6 +46,7 @@ pipeline {
 				}
 			}
 			steps {
+				// Plutot que d'installer npm serve -g, on utilise uniquement le package serve, pas besoin des droits admin sur le container
 				sh '''
 					npm install serve
 					node_modules/.bin/serve -s build &
@@ -58,7 +59,7 @@ pipeline {
 
     post {
     	always {
-    		junit 'test-results/junit.xml'
+    		junit 'jest-results/junit.xml'
     	}
     }
 }
